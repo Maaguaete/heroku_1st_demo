@@ -1,0 +1,22 @@
+{
+    "name": "asm",
+    "version": "1.0.0",
+    "main": "index.js",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "base64-js": "^1.5.1",
+        "body-parser": "^1.20.0",
+        "cookie-session": "^2.0.0",
+        "express": "^4.18.1",
+        "fs": "^0.0.1-security",
+        "mongodb": "^4.9.1",
+        "path": "^0.12.7",
+        "pug": "^3.0.2"
+    },
+    "devDependencies": {
+        "pow-arbitrary-precision": "^2.1.0"
+    }
+}
