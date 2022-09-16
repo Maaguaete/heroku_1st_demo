@@ -27,8 +27,6 @@
         "pow-arbitrary-precision": "^2.1.0"
     },
     "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Maaguaete/heroku_1st_demo.git"
     },
     "bugs": {
         "url": "https://github.com/Maaguaete/heroku_1st_demo/issues"
