@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const db_js = require('./static/db.js');
 
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 443;
 
 app.use(cookieSession({
     name: "session",
