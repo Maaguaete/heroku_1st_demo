@@ -20,7 +20,8 @@ function appendStudent(index, item) {
     $("table tbody").append(
         "<tr>" +
         "<td class='index'>" + (index + 1) + "</td>" +
-        "<td>" + formatTheID(fromByteArray(item.id.split(","))) + "</td>" +
+        // "<td>" + formatTheID(fromByteArray(item.id.split(","))) + "</td>" +
+        "<td>" + item.id + "</td>" +
         "<td>" + item.name + "</td>" +
         "<td>" + item.batch + "</td>" +
         "<td>" + item.address + "</td>" +
@@ -81,6 +82,8 @@ function addStudent() {
                 let item = response.data;
                 let index = $("table tbody > tr").length;
                 appendStudent(index, item);
+            } else {
+                alert('Response. false');
             }
         }
     });

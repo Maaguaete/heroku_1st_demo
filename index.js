@@ -1,10 +1,10 @@
 const express = require('express');
 const cookieSession = require("cookie-session");
 const bodyParser = require('body-parser');
-const db_js = require('./static/db.js');
+const db_js = require('./serverjs/db.js');
 
 const app = express();
-const port = process.env.PORT || 443;
+const port = process.env.PORT || 5000;
 
 app.use(cookieSession({
     name: "session",
@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.listen(port, () => {
-    console.log(`Running on port ${port}`);
+    // console.log(`Running on port ${port}`);
 })
 
 // Router
@@ -43,7 +43,12 @@ app.post("/postLogin", (req, res) => {
 });
 
 app.get("/readData", (req, res) => {
-    db_js.readData(req, res);
+    try {
+        db_js.readData(req, res);
+    } catch (error) {
+
+    }
+
 });
 
 app.get("/searchData", (req, res) => {
@@ -59,6 +64,6 @@ app.delete("/deleteData", (req, res) => {
 });
 
 // app.get("/decrypt", (req, res)=>{
-//     let sec = require("./static/security.js");
+//     let sec = require("./serverjs/security.js");
 //     let stdid = req.query.
 // })
