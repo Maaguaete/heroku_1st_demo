@@ -21,7 +21,8 @@ const uri = "mongodb+srv://maaguaete:<password>@cluster0.5koit4y.mongodb.net/?re
 // This is "connect your application" FORMAT
 // var url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
 
-module.exports = { postLogin, readData, searchData, createData, deleteData };
+// module.exports = { postLogin, readData, searchData, createData, deleteData };
+module.exports = { postLogin, readData }
 
 function postLogin(req, res) {
     try {
