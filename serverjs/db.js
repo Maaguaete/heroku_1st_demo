@@ -1,12 +1,12 @@
-const { ObjectId } = require('mongodb');
-var mongoClient = require('mongodb').MongoClient;
+// var { ObjectId } = require('mongodb');
+// var mongoClient = require('mongodb').MongoClient;
 // This format is to "connect using VS CODE"
 // var url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/test";
 
 // mongodb port local: 27017 => url = localhost:27017/demo
 
 // This is "connect your application" FORMAT
-var url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
+// var url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
 module.exports = { postLogin, readData, searchData, createData, deleteData };
 
 function postLogin(req, res) {
@@ -14,6 +14,9 @@ function postLogin(req, res) {
     let txt_username = req.body.username;
     let txt_password = req.body.password;
 
+    let { ObjectId } = require('mongodb');
+    let mongoClient = require('mongodb').MongoClient;
+    let url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
     mongoClient.connect(url, (err, db) => {
         if (err) {
             console.log(err);
@@ -85,6 +88,10 @@ function readData(req, res) {
 }
 
 function searchData(req, res, name) {
+    let { ObjectId } = require('mongodb');
+    let mongoClient = require('mongodb').MongoClient;
+    let url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
+
     if (name == null || name == "") {
         readData(req, res);
         return;
@@ -117,6 +124,10 @@ function valid_multipleOf4(str) {
 }
 
 function createData(req, res) {
+    let { ObjectId } = require('mongodb');
+    let mongoClient = require('mongodb').MongoClient;
+    let url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
+
     mongoClient.connect(url, (err, db) => {
         if (err) {
             res.json(JSON.stringify(err));
@@ -148,6 +159,10 @@ function createData(req, res) {
 }
 
 function deleteData(req, res) {
+    let { ObjectId } = require('mongodb');
+    let mongoClient = require('mongodb').MongoClient;
+    let url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
+
     mongoClient.connect(url, (err, db) => {
         if (err) {
             throw err;
