@@ -128,7 +128,7 @@ function createData(req, res) {
             if (err) {
                 res.json({ OK: false, Error: JSON.stringify(err) });
             } else {
-                console.log(result);
+                // console.log(result);
                 if (result && result.acknowledged) {
 
                     res.json({ OK: true, data: student });
