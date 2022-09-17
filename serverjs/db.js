@@ -2,7 +2,7 @@ var { ObjectId } = require('mongodb');
 // var mongoClient = require('mongodb').MongoClient;
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://maaguaete:<password>@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
 
 // client.connect(err => {
 //     const collection = client.db("test").collection("devices");
