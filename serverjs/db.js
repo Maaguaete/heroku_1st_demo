@@ -1,8 +1,11 @@
 const { ObjectId } = require('mongodb');
 var mongoClient = require('mongodb').MongoClient;
-var url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/test";
+// This format is to connect with VS CODE
+// var url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/test";
+
 // mongodb port local: 27017 => url = localhost:27017/demo
 
+var url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
 module.exports = { postLogin, readData, searchData, createData, deleteData };
 
 function postLogin(req, res) {
