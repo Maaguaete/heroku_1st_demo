@@ -114,9 +114,6 @@ function postLogin(req, res) {
 function readData(req, res) {
 
     try {
-        let txt_username = req.body.username;
-        let txt_password = req.body.password;
-
         // New Format
         var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
         client.connect(err => {
@@ -131,14 +128,14 @@ function readData(req, res) {
                     res.json(JSON.stringify(err));
                 } else {
 
-                    let sec = require('./security.js');
-                    Object.entries(result).forEach(([key, value]) => {
-                        let temp = sec.decrypt(value.id.split(","));
-                        temp = temp.replace(/[+]/g, '-');
-                        temp = temp.substring(0, temp.length - 2);
-                        value['id'] = temp;
-                        // console.log(value['id']);
-                    });
+                    // let sec = require('./security.js');
+                    // Object.entries(result).forEach(([key, value]) => {
+                    //     let temp = sec.decrypt(value.id.split(","));
+                    //     temp = temp.replace(/[+]/g, '-');
+                    //     temp = temp.substring(0, temp.length - 2);
+                    //     value['id'] = temp;
+                    //     // console.log(value['id']);
+                    // });
                     res.json(result);
                 }
 
