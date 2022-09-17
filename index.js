@@ -43,11 +43,11 @@ app.post("/postLogin", (req, res) => {
 });
 
 app.get("/readData", (req, res) => {
-    try {
-        db_js.readData(req, res);
-    } catch (error) {
+    // try {
+    db_js.readData(req, res);
+    // } catch (error) {
 
-    }
+    // }
 
 });
 
