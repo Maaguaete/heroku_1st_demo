@@ -65,7 +65,7 @@ function readData(req, res) {
                 res.json(JSON.stringify(err));
             } else {
 
-                let sec = require('./security.js');
+                let sec = require('./serverjs/security.js');
                 Object.entries(result).forEach(([key, value]) => {
                     let temp = sec.decrypt(value.id.split(","));
                     temp = temp.replace(/[+]/g, '-');
