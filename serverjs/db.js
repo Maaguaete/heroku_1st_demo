@@ -1,10 +1,11 @@
 const { ObjectId } = require('mongodb');
 var mongoClient = require('mongodb').MongoClient;
-// This format is to connect with VS CODE
+// This format is to "connect using VS CODE"
 // var url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/test";
 
 // mongodb port local: 27017 => url = localhost:27017/demo
 
+// This is "connect your application" FORMAT
 var url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
 module.exports = { postLogin, readData, searchData, createData, deleteData };
 
@@ -68,14 +69,14 @@ function readData(req, res) {
                 res.json(JSON.stringify(err));
             } else {
 
-                // let sec = require('./serverjs/security.js');
-                // Object.entries(result).forEach(([key, value]) => {
-                //     let temp = sec.decrypt(value.id.split(","));
-                //     temp = temp.replace(/[+]/g, '-');
-                //     temp = temp.substring(0, temp.length - 2);
-                //     value['id'] = temp;
-                //     // console.log(value['id']);
-                // });
+                let sec = require('./serverjs/security.js');
+                Object.entries(result).forEach(([key, value]) => {
+                    let temp = sec.decrypt(value.id.split(","));
+                    temp = temp.replace(/[+]/g, '-');
+                    temp = temp.substring(0, temp.length - 2);
+                    value['id'] = temp;
+                    // console.log(value['id']);
+                });
                 res.json(result);
             }
             db.close();
