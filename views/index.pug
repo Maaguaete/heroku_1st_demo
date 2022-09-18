@@ -33,6 +33,32 @@ html
                             button.btn.btn-secondary(type="button", data-dismiss="modal") Close
                             button.btn.btn-primary#btn_addStudent(type="button") ADD STUDENT
 
+            div.modal.fade#modal_editStudent(data-backdrop="static", data-keyboard="false", tabindex="-1")
+                div.modal-dialog.modal-dialog-centered
+                    div.modal-content.bg-light
+                        div.modal-header.bg-primary
+                            h3.modal-title.text-white Edit Student
+                            button.close.text-warning(data-dismiss="modal", aria-label="Close")
+                                span(aria-hidden="true") &times;
+                        form.modal-body
+                            input#edit_index(type="hidden", name="index")
+                            input#edit_obj_id(type="hidden", name="_id")
+                            div.form-group
+                                label(for="id") Student ID: 
+                                input.form-control#edit_id(readonly, type="text", name="id", placeholder="FAI-MDB-xxxxxx", value="FAI-MDB-000002")
+                            div.form-group
+                                label(for="fullname") Fullname: 
+                                input.form-control#edit_name(type="text", name="name", value="Nguyen Toan")
+                            div.form-group
+                                label(for="batch") Batch: 
+                                input.form-control#edit_batch(type="text", name="batch", value="T1.2109.E0")
+                            div.form-group
+                                label(for="address") Address: 
+                                input.form-control#edit_address(type="text", name="address", value="Pham The Hien")
+                        div.modal-footer
+                            button.btn.btn-secondary(type="button", data-dismiss="modal") Close
+                            button.btn.btn-primary#btn_editStudent(type="button") EDIT STUDENT
+
             input#searchBar.form-control(type="text", placeholder="Search by name")
 
             table.table.table-hover.text-center.mt-5

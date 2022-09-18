@@ -58,7 +58,9 @@ app.get("/searchData", (req, res) => {
 app.post("/addStudent", (req, res) => {
     db_js.createData(req, res);
 });
-
+app.post("/editStudent", (req, res) => {
+    db_js.editData(req, res);
+})
 app.delete("/deleteData", (req, res) => {
     db_js.deleteData(req, res);
 });
