@@ -145,28 +145,33 @@ function readData(req, res) {
 }
 
 function searchData(req, res, name) {
+    try {
 
-    if (name == null || name == "") {
-        readData(req, res);
-        return;
-    }
-    var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-    client.connect(err => {
-        if (err) throw err;
-        let students = db.db("demo").collection("students");
 
-        let query = { name: { $regex: ".*" + name + ".*", $options: 'i' } };
+        if (name == null || name == "") {
+            readData(req, res);
+            return;
+        }
+        let client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+        client.connect(err => {
+            if (err) throw err;
+            let students = client.db("demo").collection("students");
 
-        students.find(query).toArray((err, result) => {
-            if (err) {
-                res.json(JSON.stringify(err));
-            } else {
-                // console.log(result);
-                res.json(result);
-            }
-            client.close();
+            let query = { name: { $regex: ".*" + name + ".*", $options: 'i' } };
+
+            students.find(query).toArray((err, result) => {
+                if (err) {
+                    res.json(JSON.stringify(err));
+                } else {
+                    // console.log(result);
+                    res.json(result);
+                }
+                client.close();
+            });
         });
-    });
+    } catch (error) {
+
+    }
 }
 
 function valid_multipleOf4(str) {
