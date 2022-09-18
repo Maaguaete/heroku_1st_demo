@@ -210,7 +210,7 @@ function createData(req, res) {
                     temp = temp.substring(0, temp.length - 2);
                     student['id'] = temp;
 
-                    console.log(student['id']);
+                    // console.log(student['id']);
                     res.json({ OK: true, data: student });
                 } else {
                     res.json({ OK: false, data: student });
