@@ -204,6 +204,13 @@ function createData(req, res) {
                 // console.log(result);
                 if (result && result.acknowledged) {
 
+                    let sec = require('./security.js');
+                    let temp = sec.decrypt(student.id.split(","));
+                    temp = temp.replace(/[+]/g, '-');
+                    temp = temp.substring(0, temp.length - 2);
+                    student['id'] = temp;
+
+                    console.log(student['id']);
                     res.json({ OK: true, data: student });
                 } else {
                     res.json({ OK: false, data: student });
