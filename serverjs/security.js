@@ -1,6 +1,3 @@
-let pass;
-const bcrypt = require('bcrypt');
-
 function encrypt(text) {
     let base64 = require('base64-js');
     return base64.toByteArray(text).toString();

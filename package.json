@@ -15,7 +15,6 @@
     "description": "��#\u0000 \u0000h\u0000e\u0000r\u0000o\u0000k\u0000u\u0000_\u00001\u0000s\u0000t\u0000_\u0000d\u0000e\u0000m\u0000o\u0000\r\u0000 \u0000",
     "dependencies": {
         "base64-js": "^1.5.1",
-        "bcrypt": "^5.0.1",
         "body-parser": "^1.20.0",
         "cookie-session": "^2.0.0",
         "engines": "^0.4.0",
