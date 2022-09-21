@@ -19,7 +19,7 @@ const uri = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?
 // This is "connect your application" FORMAT
 // var url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
 
-module.exports = { postLogin, readData, searchData, createData, editData, deleteData };
+module.exports = { postLogin, postSignup, readData, searchData, createData, editData, deleteData };
 
 function postLogin(req, res) {
     try {
@@ -29,24 +29,38 @@ function postLogin(req, res) {
         // New Format
         let client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
         client.connect(err => {
-            const collection = client.db("demo").collection("users");
+            let users = client.db("demo").collection("users");
             // perform actions on the collection object
             if (err) {
                 console.log(err);
             }
 
-
-            let query = { username: txt_username };
-            collection.countDocuments(query, (err, result) => {
+            users.find({ username: txt_username }).toArray((err, result) => {
                 if (err) {
                     console.log(err);
                 } else {
+                    console.log("Result: " + result[0].pwd);
+                    if (result) {
 
-                    if (result >= 1) {
+                        let bcrypt = require('bcryptjs');
+                        bcrypt.compare(txt_password, result[0].pwd,
+                            async function(err, isMatch) {
 
-                        req.session.username = txt_username;
-                        req.session.pwd = txt_password;
-                        res.redirect("/");
+                                // Comparing the original password to
+                                // encrypted password   
+                                if (isMatch) {
+
+                                    req.session.username = txt_username;
+                                    req.session.pwd = txt_password;
+                                    res.redirect("/");
+                                }
+                                if (!isMatch) {
+                                    // If password doesn't match the following
+                                    // message will be sent
+                                    res.render("login", { err: "Invalid username or password!" });
+                                }
+                            });
+
                     } else {
                         res.render("login", { err: "Invalid username or password!" });
                     }
@@ -54,58 +68,62 @@ function postLogin(req, res) {
                 client.close();
             });
         });
-
-        // let { ObjectId } = require('mongodb');
-        // let mongoClient = require('mongodb').MongoClient;
-        // let url = "mongodb+srv://maaguaete:Atlas%401108@cluster0.5koit4y.mongodb.net/?retryWrites=true&w=majority";
-        // mongoClient.connect(url, (err, db) => {
-        // if (err) {
-        //     console.log(err);
-        // }
-
-        //     let dbo = db.db("demo");
-        //     // Login check username vs password
-        //     // let query = { username: txt_username, pwd: txt_password };
-
-        //     // dbo.collection("users").countDocuments(query, (err, result) => {
-        //     //     if (err) {
-        //     //         console.log(err);
-        //     //     } else {
-
-        //     //         if (result >= 1) {
-        //     //             req.session.username = txt_username;
-        //     //             req.session.pwd = txt_password;
-        //     //             res.redirect("/");
-        //     //         } else {
-        //     //             res.render("login", { err: "Invalid username or password!" });
-        //     //         }
-        //     //     }
-        //     //     db.close();
-        //     // });
-
-        //     let query = { username: txt_username };
-        //     dbo.collection("users").countDocuments(query, (err, result) => {
-        //         if (err) {
-        //             console.log(err);
-        //         } else {
-
-        //             if (result >= 1) {
-
-        //                 req.session.username = txt_username;
-        //                 req.session.pwd = txt_password;
-        //                 res.redirect("/");
-        //             } else {
-        //                 res.render("login", { err: "Invalid username or password!" });
-        //             }
-        //         }
-        //             db.close();
-        //         });
-        //     });
-
     } catch (error) {
-
+        res.render("login", { err: error });
     }
+}
 
+function postSignup(req, res) {
+    let client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+    client.connect(err => {
+        if (err) {
+            res.json(JSON.stringify(err));
+            return;
+        }
+
+        let users = client.db("demo").collection("users");
+        let username = req.body.signup_username;
+        let pass = req.body.signup_password;
+        users.countDocuments({ username: username }, (err, result) => {
+            if (err) {
+                res.json({ OK: false, Error: JSON.stringify(err) });
+            } else {
+                if (result > 0) {
+                    res.json({ OK: false, data: "Username not available!" });
+                    return;
+                }
+                let bcrypt = require('bcryptjs');
+                // Encryption of the string password
+                bcrypt.genSalt(10, function(err, Salt) {
+                    // The bcrypt is used for encrypting password.
+                    bcrypt.hash(pass, Salt, function(err, hash) {
+                        if (err) {
+                            return console.log('Cannot encrypt');
+                        }
+                        console.log("Hash: " + hash);
+                        console.log("pass: " + pass);
+                        let user = { username: username, pwd: hash };
+                        users.insertOne(user, (err, result) => {
+                            if (err) {
+                                res.json({ OK: false, Error: JSON.stringify(err) });
+                            } else {
+                                // console.log(result);
+                                if (result && result.acknowledged) {
+                                    res.redirect("/login");
+                                    return
+                                } else {
+                                    res.json({ OK: false, data: "Username not available!" });
+                                }
+                                //res.json({ data: result, OK: true });
+                                //res.redirect("/");
+                            }
+                            client.close();
+                        });
+                    });
+                });
+            }
+        });
+    });
 }
 
 function readData(req, res) {
@@ -146,7 +164,6 @@ function readData(req, res) {
 
 function searchData(req, res, name) {
     try {
-
 
         if (name == null || name == "") {
             readData(req, res);
@@ -226,6 +243,7 @@ function createData(req, res) {
 function editData(req, res) {
     try {
         let client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
         client.connect(err => {
             if (err) {
                 throw err;

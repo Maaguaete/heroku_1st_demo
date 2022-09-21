@@ -41,7 +41,9 @@ app.get("/login", (req, res) => {
 app.post("/postLogin", (req, res) => {
     db_js.postLogin(req, res);
 });
-
+app.post("/postSignup", (req, res) => {
+    db_js.postSignup(req, res);
+});
 app.get("/readData", (req, res) => {
     // try {
     db_js.readData(req, res);

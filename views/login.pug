@@ -29,7 +29,24 @@ html
                 div.text-center.fs-6
                     a(href="#") Forget password?
                     p  or 
-                    a.btn.rounded(href="#") Sign up
-        
+                    button.btn.rounded#btn_signup(type="button", data-toggle="modal" data-target="#modal_signup") Sign up
+                    div.modal.fade#modal_signup(data-backdrop="static", data-keyboard="false", tabindex="-1")
+                            div.modal-dialog.modal-dialog-centered
+                                div.modal-content.bg-light
+                                    div.modal-header.bg-primary
+                                        h3.modal-title.text-white SIGN UP
+                                        button.close.text-warning(data-dismiss="modal", aria-label="Close")
+                                            span(aria-hidden="true") &times;
+                                    form.modal-body(action="/postSignup", method="POST")
+                                        div.form-group
+                                            label.text-left(for="username") Username: 
+                                            input.form-control#signup_username(type="text", name="signup_username", placeholder="Enter username")
+                                        div.form-group
+                                            label.text-left(for="password") Password: 
+                                            input.form-control#signup_password(type="text", name="signup_password", placeholder="Enter password")
+                                        div.modal-footer
+                                            button.btn.btn-secondary(type="button", data-dismiss="modal") Close
+                                            input.btn.btn-primary(type="submit", value="Sign-up") 
+
         include ./footer.pug
     script(src="./ajax.js") 
