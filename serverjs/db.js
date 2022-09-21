@@ -44,7 +44,7 @@ function postLogin(req, res) {
 
                         let bcrypt = require('bcryptjs');
                         bcrypt.compare(txt_password, result[0].pwd,
-                            async function(err, isMatch) {
+                            function(err, isMatch) {
 
                                 // Comparing the original password to
                                 // encrypted password   
